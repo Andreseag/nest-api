@@ -7,6 +7,8 @@ import {
   Body,
   Put,
   Delete,
+  HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 
 @Controller('products')
@@ -28,8 +30,11 @@ export class ProductsController {
   }
 
   @Get(':productId')
-  getProduct(@Param('productId') productId: string): string {
-    return `Product ${productId}`;
+  @HttpCode(HttpStatus.ACCEPTED)
+  getProduct(@Param('productId') productId: string): any {
+    return {
+      message: `Product ${productId}`,
+    };
   }
 
   @Post()
