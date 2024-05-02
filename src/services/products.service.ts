@@ -34,7 +34,7 @@ export class ProductsService {
     return this.products;
   }
 
-  finOne(id: number): Product {
+  findOne(id: number): Product {
     return this.products.find((product) => product.id === id);
   }
 
@@ -45,5 +45,21 @@ export class ProductsService {
     };
     this.products.push(newProduct);
     return newProduct;
+  }
+
+  update(id: number, payload: any): Product {
+    const index = this.products.findIndex((product) => product.id === id);
+    this.products[index] = {
+      ...this.products[index],
+      ...payload,
+    };
+    return this.products[index];
+  }
+
+  delete(id: number): Product {
+    const index = this.products.findIndex((product) => product.id === id);
+    const product = this.products[index];
+    this.products.splice(index, 1);
+    return product;
   }
 }
